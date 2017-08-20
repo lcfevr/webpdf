@@ -1,0 +1,37 @@
+{
+  "name": "webpdf",
+  "version": "0.1.0",
+  "description": "webpdf",
+  "keywords": [
+    "webpdf"
+  ],
+  "bin": {
+    "webpdf": "./bin/webpdf"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xudafeng/webpdf.git"
+  },
+  "dependencies": {
+    "koa": "^1.4.0",
+    "koa-static": "~1.4.7",
+    "puppeteer": "^0.9.0",
+    "xutil": "^1.0.7"
+  },
+  "devDependencies": {
+    "co-mocha": "*",
+    "istanbul": "*",
+    "jshint": "*",
+    "mocha": "*",
+    "pre-commit": "*",
+    "should": "^11.2.1"
+  },
+  "scripts": {
+    "jshint": "make jshint"
+  },
+  "pre-commit": [
+    "jshint"
+  ],
+  "homepage": "https://github.com/xudafeng/webpdf",
+  "license": "MIT"
+}

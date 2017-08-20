@@ -1,0 +1,81 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const _ = require('xutil');
+const koa = require('koa');
+const path = require('path');
+const serve = require('koa-static');
+const puppeteer = require('puppeteer');
+
+const app = koa();
+
+const distPath = path.join(__dirname, '..', 'public');
+
+_.mkdir(distPath);
+
+app.use(serve(distPath));
+
+var Status = {
+  status: 'ok',
+  getStatus: () => {
+    return {
+      status: Status.status
+    };
+  },
+  setStatus: status => {
+    Status.status = status;
+    return Status.getStatus();
+  },
+  setBusy: () => {
+    Status.setStatus('busy');
+  },
+  setOK: () => {
+    Status.setStatus('ok');
+  },
+  isBusy: () => {
+    return Status.status === 'busy';
+  }
+};
+
+app.use(function * () {
+
+  if (Status.isBusy()) {
+    this.body = Status.getStatus();
+    return;
+  }
+
+  try {
+    Status.setBusy();
+
+    var url = this.query.url;
+
+    if (!url) {
+      throw 'lack of url';
+    }
+    console.log(`url: ${url}, ${_.moment().format()}`);
+
+    const browser = yield puppeteer.launch({
+      args: ['--no-sandbox']
+    });
+    const page = yield browser.newPage();
+    yield page.goto(url, {
+      waitUntil: 'networkidle'
+    });
+    yield page.pdf({
+      path: path.join(distPath, 'result.pdf'),
+      format: 'A0'
+    });
+    browser.close();
+  } catch (e) {
+    console.log(e);
+  }
+
+  Status.setOK();
+
+  this.body = Status.getStatus();
+});
+
+app.listen(8080, () => {
+  console.log(`http server start`);
+});
