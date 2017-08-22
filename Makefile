@@ -10,7 +10,7 @@ jshint:
 start: install
 	./bin/webpdf
 build-docker:
-	docker build . -t="xudafeng/webpdf"
+	docker build . -t="webpdf"
 docker-run-dev:
 	docker run -it -p 8080:8080 --entrypoint=/bin/bash webpdf
 docker-run:
