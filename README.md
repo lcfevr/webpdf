@@ -25,7 +25,7 @@
 $ npm i webpdf --save-dev
 ```
 
-- [//github.com/macacajs/macaca-puppeteer-docker](macaca-puppeteer-docker)
+- [macaca-puppeteer-docker](//github.com/macacajs/macaca-puppeteer-docker)
 
 ## License
 
