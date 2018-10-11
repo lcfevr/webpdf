@@ -1,6 +1,6 @@
-FROM macacajs/macaca-puppeteer-docker
+FROM registry.docker-cn.com/macacajs/macaca-puppeteer-docker
 
-MAINTAINER xdf <xudafeng@126.com>
+MAINTAINER lcfevr <lcfevr@163.com>
 
 WORKDIR src
 
